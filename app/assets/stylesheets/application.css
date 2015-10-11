@@ -13,11 +13,24 @@
  *= require_tree .
  *= require_self
  */
+img{
+  height:4em;
+}
 
 .debug_dump {
   margin-top:100px;
 }
 
+#distance{
+
+  width:50%;
+  margin:auto;
+
+}
+#panel > div > h2{
+font-size:10em;
+font-style:italic;
+}
 #flash_notice{
   width:650px;
   color:red;

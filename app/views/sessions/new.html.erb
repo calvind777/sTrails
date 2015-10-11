@@ -18,6 +18,10 @@
 	<!-- Latest compiled and minified JavaScript -->
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 
+  
+
+
+  <meta name="viewport" content="initial-scale=1.0, width=device-width" />
   <link rel="stylesheet" type="text/css"
     href="https://js.api.here.com/v3/3.0/mapsjs-ui.css" />
   <script type="text/javascript" charset="UTF-8"
@@ -28,8 +32,162 @@
     src="https://js.api.here.com/v3/3.0/mapsjs-ui.js"></script>
   <script type="text/javascript" charset="UTF-8"
     src="https://js.api.here.com/v3/3.0/mapsjs-mapevents.js"></script>
-  <script type="text/javascript" charset="UTF-8"
+    <script type="text/javascript" charset="UTF-8"
     src="https://js.api.here.com/v3/3.0/mapsjs-places.js"></script>
+    <script src="http://js.api.here.com/v3/3.0/mapsjs-pano.js" 
+       type="text/javascript" charset="utf-8"></script>
+<style type="text/css">
+.directions li span.arrow {
+  display:inline-block;
+  min-width:28px;
+  min-height:28px;
+  background-position:0px;
+  background-image: url("../img/arrows.png");
+  position:relative;
+  top:8px;
+}
+.directions li span.depart  {
+  background-position:-28px;
+}
+.directions li span.rightUTurn  {
+  background-position:-56px;
+}
+.directions li span.leftUTurn  {
+  background-position:-84px;
+}
+.directions li span.rightFork  {
+  background-position:-112px;
+}
+.directions li span.leftFork  {
+  background-position:-140px;
+}
+.directions li span.rightMerge  {
+  background-position:-112px;
+}
+.directions li span.leftMerge  {
+  background-position:-140px;
+}
+.directions li span.slightRightTurn  {
+  background-position:-168px;
+}
+.directions li span.slightLeftTurn{
+  background-position:-196px;
+}
+.directions li span.rightTurn  {
+  background-position:-224px;
+}
+.directions li span.leftTurn{
+  background-position:-252px;
+}
+.directions li span.sharpRightTurn  {
+  background-position:-280px;
+}
+.directions li span.sharpLeftTurn{
+  background-position:-308px;
+}
+.directions li span.rightRoundaboutExit1 {
+  background-position:-616px;
+}
+.directions li span.rightRoundaboutExit2 {
+  background-position:-644px;
+}
+
+.directions li span.rightRoundaboutExit3 {
+  background-position:-672px;
+}
+
+.directions li span.rightRoundaboutExit4 {
+  background-position:-700px;
+}
+
+.directions li span.rightRoundaboutPass {
+  background-position:-700px;
+}
+
+.directions li span.rightRoundaboutExit5 {
+  background-position:-728px;
+}
+.directions li span.rightRoundaboutExit6 {
+  background-position:-756px;
+}
+.directions li span.rightRoundaboutExit7 {
+  background-position:-784px;
+}
+.directions li span.rightRoundaboutExit8 {
+  background-position:-812px;
+}
+.directions li span.rightRoundaboutExit9 {
+  background-position:-840px;
+}
+.directions li span.rightRoundaboutExit10 {
+  background-position:-868px;
+}
+.directions li span.rightRoundaboutExit11 {
+  background-position:896px;
+}
+.directions li span.rightRoundaboutExit12 {
+  background-position:924px;
+}
+.directions li span.leftRoundaboutExit1  {
+  background-position:-952px;
+}
+.directions li span.leftRoundaboutExit2  {
+  background-position:-980px;
+}
+.directions li span.leftRoundaboutExit3  {
+  background-position:-1008px;
+}
+.directions li span.leftRoundaboutExit4  {
+  background-position:-1036px;
+}
+.directions li span.leftRoundaboutPass {
+  background-position:1036px;
+}
+.directions li span.leftRoundaboutExit5  {
+  background-position:-1064px;
+}
+.directions li span.leftRoundaboutExit6  {
+  background-position:-1092px;
+}
+.directions li span.leftRoundaboutExit7  {
+  background-position:-1120px;
+}
+.directions li span.leftRoundaboutExit8  {
+  background-position:-1148px;
+}
+.directions li span.leftRoundaboutExit9  {
+  background-position:-1176px;
+}
+.directions li span.leftRoundaboutExit10  {
+  background-position:-1204px;
+}
+.directions li span.leftRoundaboutExit11  {
+  background-position:-1232px;
+}
+.directions li span.leftRoundaboutExit12  {
+  background-position:-1260px;
+}
+.directions li span.arrive  {
+  background-position:-1288px;
+}
+.directions li span.leftRamp  {
+  background-position:-392px;
+}
+.directions li span.rightRamp  {
+  background-position:-420px;
+}
+.directions li span.leftExit  {
+  background-position:-448px;
+}
+.directions li span.rightExit  {
+  background-position:-476px;
+}
+
+.directions li span.ferry  {
+  background-position:-1316px;
+}
+</style>
+
 </head>
 <body>
 	<div class="container-fluid">
@@ -52,8 +210,12 @@
 		 <% if flash[:danger] %>
         <div id="flash_notice"><%= flash.now[:danger]='Wrong password: Please try again.' %></div>
     	<% end %>
+		
 		<div class="header">
 				Welcome to sTrails
+				<div class="text-center">
+				<img src="http://i.imgur.com/YDJTJ9J.png?1">
+			</div>
 		</div>
 			
 		<div id="content">
@@ -158,6 +320,10 @@
 	    </div>
 	</div>
 	<div class="text-center">
+	<label for="radiusm">Radius of Travel (miles)</label>
+    <input type="distance" class="form-control" id="distance" placeholder="10">
+</div>
+	<div class="text-center">
 	<button type="button" class="btn btn-default" id="mybutton" onclick="findLocation()">Submit</button>
 	<script>
 	function findLocation(){ 
@@ -165,10 +331,11 @@
 	var city=document.getElementById('CityName').value;
 	var allstates=document.getElementById('statename');
 	var usersstate=allstates.options[allstates.selectedIndex].text;
+	var radius=document.getElementById('distance').value;
 
 	city=city.replace(/ /g,"+");
 	
-	httpGetAsync("http://geocoder.cit.api.here.com/6.2/geocode.xml?app_id=zqFwHGs3fAaLpN3H0D4e&app_code=TiCEcnSvzxEy6xOmaIwlOw&gen=9&searchtext="+String(city)+"+"+String(usersstate),getlatlon);
+	httpGetAsync("http://geocoder.cit.api.here.com/6.2/geocode.xml?app_id=zqFwHGs3fAaLpN3H0D4e&app_code=TiCEcnSvzxEy6xOmaIwlOw&gen=9&searchtext="+String(city)+"+"+String(usersstate),generateMap);
 
 	
 	}
@@ -178,7 +345,7 @@
     var xmlHttp = new XMLHttpRequest();
     xmlHttp.onreadystatechange = function() { 
         if (xmlHttp.readyState == 4 && xmlHttp.status == 200){
-            alert("we done boys")
+            
             callback(xmlHttp);
         }
     }
@@ -186,7 +353,7 @@
     xmlHttp.send(null);
     
 }
-	function getlatlon(xml)
+	function generateMap(xml)
 	{
 		xmlDoc=xml.responseXML;
 		
@@ -199,7 +366,96 @@
 		lat=lats[1].childNodes[0].nodeValue;
 		lon=lons[1].childNodes[0].nodeValue;
 		
-		return [lat,lon];
+		var radius=document.getElementById('distance').value;
+		
+		var platform = new H.service.Platform({
+  app_id: 'S8J3sTnATkUOVfSWLZCN',
+  app_code: 'mL4HA61y1RsXqgM2Ei_DAw',
+  useHTTPS: true,
+  useCIT: true
+});
+
+var defaultLayers = platform.createDefaultLayers();
+var routeInstructionsContainer = document.getElementById('panel');
+platform.configure(H.map.render.panorama.RenderEngine);
+
+var map = new H.Map(document.getElementById('map'),
+  defaultLayers.normal.map, {
+    center: {lat: lat, lng: lon},
+    zoom: 15
+    //engineType: H.Map.EngineType.PANORAMA
+  });
+
+var currentOver = map;
+
+ var mapEvents = new H.mapevents.MapEvents(map);
+
+map.addEventListener('enginechange',function(evt){
+    map.setViewBounds(H.geo.Rect.coverPoints(dots), true);
+});
+
+map.addEventListener('mapviewchange',function (evt){
+  getBubblePoint();
+});
+
+map.addEventListener('pointermove', function(evt) {
+    // Log 'tap' and 'mouse' events:
+  if (evt.target != currentOver) {  
+    if (currentOver instanceof mapsjs.map.Marker){
+      closeBubble();
+    }
+    if (evt.target instanceof mapsjs.map.Marker && evt.target.content2){
+      openBubble(evt.target.getPosition(), evt.target.content2, evt.target);
+    }
+    currentOver = evt.target;
+  } 
+});
+
+var ordered_list_places = [];
+
+map.addEventListener('tap', function(evt){
+  if (canDblTap && evt.target instanceof mapsjs.map.Marker){
+    index = ordered_list_places.indexOf(evt.target);
+    if (index > -1){
+      ordered_list_places.splice(index, 1);
+      routeInstructionsContainer.removeChild(routeInstructionsContainer.childNodes[index]);
+    }
+  
+    else{
+      ordered_list_places.push(evt.target);
+      var listDiv = document.createElement('div');
+      listDiv.innerHTML = evt.target.content;
+      routeInstructionsContainer.appendChild(listDiv);
+      evt.target.text = "hi";
+    }
+  }
+});
+
+map.addEventListener('dbltap', function(evt){
+
+  if (canDblTap && evt.target === map){
+    for (var i = routeInstructionsContainer.childNodes.length-1; i > -1; i--){
+      routeInstructionsContainer.removeChild(routeInstructionsContainer.childNodes[i]);
+    }
+    
+    set_Trail_Points(ordered_list_places);
+  }
+});
+
+var placesContainer = document.getElementById('panel');
+
+// add map behavior
+
+var behavior = new H.mapevents.Behavior(mapEvents);
+
+// Create the default UI components
+
+var ui = H.ui.UI.createDefault(map, defaultLayers);
+
+explorePlaces(platform,lat,lon,radius);
+location.refresh();
+
+		
 	}
 	
 	</script>
@@ -217,16 +473,15 @@
 	
 	
 	<div id="map" style="position:absolute; width:49%; height:100%; background:grey" ></div>
-	<div id="panel" style="position:absolute; width:49%; left:51%; height:100%; background:inherit" ></div>
+  	<div id="panel" style="position:absolute; width:49%; left:51%; height:100%; background:inherit" ></div>
 
 	<script  type="text/javascript" charset="UTF-8" >
-    function getFormData(){ 
-	var city=document.getElementById('examplecity1').value;
-	var state=document.getElementById('state').value;
-/* some other fields */
-/* now call ur function by passing the above values */
-	alert("asdfasdfa");
-}
+    
+var geo_points = [];
+var dots = [];
+var start_drawing = false;
+var canDblTap = true;
+
 /**
  * This example uses the explore entrypoint to find sights and museums, around the
  * Brandenburg Gate (52.5159°N, 13.3777°E) in Berlin.
@@ -240,11 +495,12 @@
  *
  * @param   {H.service.Platform} platform    A stub class to access HERE services
  */
-function explorePlaces(platform) {
+function explorePlaces(platform,lat,lon,radius) {
   var explore = new H.places.Explore(platform.getPlacesService());
   var params = {
-    'cat': 'sights-museums',
-    'in': '52.5159,13.3777;r=500'  // Berlin
+    'size': '15',
+    'in': String(lat)+','+String(lon)+'; '+'r='+String(radius*1609.344)
+     // no longer Berlin 
   };
   explore.request(params, {}, onResult, onError);
 }
@@ -260,14 +516,25 @@ function explorePlaces(platform) {
 function onResult(result) {
   var places = result.results.items;
   /*
-   * The styling of the places response on the map is entirely under the developers control.
+   * The styling of the places response on the map is entirely under the developer's control.
    * A representative styling can be found the full JS + HTML code of this example
    * in the functions below:
    */
+
   addPlacesToMap(places);
-  addPlacesToPanel(places);
+//  addPlacesToPanel(places);
+//  confirm("got here");
 }
 
+function set_Trail_Points(places){
+//  confirm("here");
+
+  for (var i = 0; i < places.length; i+=1){
+    geo_points.push(places[i].getPosition());
+    
+  }
+  calculate_All_Route(platform, geo_points);
+}
 
 /**
  * This function will be called if a communication error occurs during the JSON-P request
@@ -279,6 +546,96 @@ function onError(error) {
   error = data;
 }
 
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+var all_routes = [];
+var total_Time = 0;
+var total_Distance = 0;
+var callbacks = 0;
+var line_colors = ["CornflowerBlue", "Chartreuse", "BlueViolet", "Red", "Fuchsia", "Gold", "LightPink", "Navy", "Plum", "Brown"];
+
+function calculateRouteFromAtoB (platform, place1, place2) {
+  var router = platform.getRoutingService();
+  var routeRequestParams = {
+      mode: 'shortest;car',
+      representation: 'display',
+      waypoint0: '' + place1.lat + ',' + place1.lng,
+      waypoint1: '' + place2.lat + ',' + place2.lng,
+      routeattributes: 'waypoints,summary,shape,legs',
+      maneuverattributes: 'direction,action'
+    };
+
+
+  router.calculateRoute(
+    routeRequestParams,
+    onSuccess,
+    onError
+  );
+
+};
+
+function onSuccess(result) {
+  var route = result.response.route[0];
+ /*
+  * The styling of the route response on the map is entirely under the developer's control.
+  * A representitive styling can be found the full JS + HTML code of this example
+  * in the functions below:
+  */
+//  confirm("success");
+  addRouteShapeToMap(route);
+  addManueversToMap(route);
+  all_routes.push(route);
+ // confirm(all_routes);
+  total_Time += route.summary.travelTime;
+  total_Distance += route.summary.distance;
+  callbacks = callbacks + 1;
+
+  if(callbacks === geo_points.length-1){
+    finalSummary(platform);  
+  };
+  //confirm(total_Time);
+  // ... etc.
+};
+
+function calculate_All_Route(platform, places){
+//  var total_Time = 0;
+ // var all_routes = [];
+  for (i = 0; i < places.length-1; i++) {
+    calculateRouteFromAtoB(platform, places[i], places[i+1]);
+  };
+};
+
+var finalSummary = function(platform){
+  //confirm((total_Distance*0.000621).toFixed(2));
+  //confirm(total_Time.toMMSS());
+  
+  var totalDiv = document.createElement('div');
+  map.setViewBounds(H.geo.Rect.coverPoints(dots), true);
+  marker_group.removeObjects(marker_group.getObjects().filter(function (e){
+    return ordered_list_places.indexOf(e)<0}));
+
+  totalDiv.style.fontSize = 'x-large';
+  totalDiv.innerHTML = '<b>Total Trip Distance: </b>' + (total_Distance*0.000621).toFixed(2)  + ' miles. <br/> <b>Total Trip Time: </b>' + total_Time.toMMSS() + '</br>';
+  routeInstructionsContainer.appendChild(totalDiv);
+
+  for (i = 0; i < all_routes.length; i++){
+   // confirm('i is ' + i);
+    addWaypointsToPanel(ordered_list_places[i],ordered_list_places[i+1]);
+    addSummaryToPanel(all_routes[i].summary);
+    addManueversToPanel(all_routes[i]);
+    
+  };
+  canDblTap = false;
+
+ //content += '<b>Total Time of Trip: </b>' + total_Time.toMMSS();
+  
+};
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
 
 /**
  * Boilerplate map initialization code starts below:
@@ -288,112 +645,398 @@ function onError(error) {
 // Hold a reference to any infobubble opened
 var bubble;
 
+function getBubblePoint(){
+  var bot_right = map.getViewBounds().getBottomRight();
+  if (bubble){
+    bubble.setPosition(bot_right);
+  }
+  return bot_right;
+}
+
 /**
  * Opens/Closes a infobubble
  * @param  {H.geo.Point} position     The location on the map.
  * @param  {String} text              The contents of the infobubble.
  */
-function openBubble(position, text){
+function openBubble(position, text, marker){
+  var position2 = getBubblePoint();
   if(!bubble){
     bubble =  new H.ui.InfoBubble(
-      position,
+      position2,
       // The FO property holds the province name.
       {content: text});
     ui.addBubble(bubble);
   } else {
-    bubble.setPosition(position);
+    bubble.setPosition(position2);
     bubble.setContent(text);
     bubble.open();
   }
+  bubble.marker = marker;
+
+  //bubble.setZIndex(0);
 }
 
+function closeBubble(){
+  bubble.close();
+}
+
+/**
+ * Create a marker that is capable of receiving DOM events and add it
+ * to the map.
+ *
+ * @param  {H.Map} map      A HERE Map instance within the application
+ */
+// function addDomMarker(place) {
+//   var outerElement = document.createElement('div'),
+//       innerElement = document.createElement('default');
+
+//   //outerElement.style.userSelect = 'none';
+//   // outerElement.style.webkitUserSelect = 'none';
+//   // outerElement.style.msUserSelect = 'none';
+//   // outerElement.style.mozUserSelect = 'none';
+//   // outerElement.style.cursor = 'default';
+
+//   innerElement.style.color = 'red';
+//   innerElement.style.backgroundColor = 'blue';
+//   innerElement.style.border = '2px solid black';
+//   innerElement.style.font = 'normal 12px arial';
+//   // innerElement.style.lineHeight = '12px'
+
+//   innerElement.style.paddingTop = '2px';
+//   innerElement.style.paddingLeft = '4px';
+//   innerElement.style.width = '20px';
+//   innerElement.style.height = '20px';
+
+//   // add negative margin to inner element
+//   // to move the anchor to center of the div
+//   // innerElement.style.marginTop = '-10px';
+//   // innerElement.style.marginLeft = '-10px';
+
+//   outerElement.appendChild(innerElement);
+
+//   // Add text to the DOM element
+//   // innerElement.innerHTML = 'C';
+
+//   function changeOpacity(evt) {
+//     evt.target.style.opacity = 0.6;
+//   };
+
+//   function changeOpacityToOne(evt) {
+//     evt.target.style.opacity = 1;
+//   };
+
+//   //create dom icon and add/remove opacity listeners
+//   var domIcon = new H.map.DomIcon(outerElement, {
+//     // the function is called every time marker enters the viewport
+//     onAttach: function(clonedElement, domIcon, domMarker) {
+//       clonedElement.addEventListener('mouseover', changeOpacity);
+//       clonedElement.addEventListener('mouseout', changeOpacityToOne);
+//     },
+//     // the function is called every time marker leaves the viewport
+//     onDetach: function(clonedElement, domIcon, domMarker) {
+//       clonedElement.removeEventListener('mouseover', changeOpacity);
+//       clonedElement.removeEventListener('mouseout', changeOpacityToOne);
+//     }
+//   });
+
+//   // Marker for Chicago Bears home
+//   var marker = new H.map.DomMarker({lat: place.position[0], lng: place.position[1]}, {
+//     // icon: domIcon
+//   });
+
+//   return marker
+// }
 
 
 /**
  * Creates a series of clickable markers for each place found  and adds it to the map.
  * @param {Object[]} places An array of places as received from the H.service.getPlacesService
  */
+ var marker_group;
 function addPlacesToMap(places) {
   var group = new  H.map.Group();
-  // add 'tap' event listener, that opens info bubble, to the group
-  group.addEventListener('tap', function (evt) {
-    map.setCenter(evt.target.getPosition());
-    openBubble(
-      evt.target.getPosition(), evt.target.content);
-  }, false);
 
   group.addObjects(places.map(function (place) {
     var marker = new H.map.Marker({lat: place.position[0], lng: place.position[1]})
-    marker.content = '<div style="font-size: 10px" ><h3>' + place.title +
-      '</h3><h4>' + place.category.title + '</h4>' + place.vicinity + '</div>';
+    // var marker = new H.map.Marker([place.position[0], place.position[1]]);
+    marker.content = '<div style="font-size: 20px" ><h2>' + place.title +
+      '</h2><h4>' + place.category.title + ', Rated: ' + place.averageRating + '/5</h4>' + place.vicinity + '</div>';
+    marker.place_name = place.title;
+    marker.content2 = '<div style="font-size: 10px" ><h3><br>' + place.title +
+      '</h3><h4>' + place.category.title + '</h4>' + place.vicinity + '<p></p><br></div>';
+    marker.place_name = place.title;
     return marker;
-  }));
+
+   }));
+//  group.addObjects(places.map(addDomMarker));
 
   map.addObject(group);
-
+  marker_group = group;
   // get geo bounding box for the group and set it to the map
   map.setViewBounds(group.getBounds());
+
+  start_drawing = true;
 }
+function addRouteShapeToMap(route){
+  var strip = new H.geo.Strip(),
+    routeShape = route.shape,
+    polyline;
+
+  routeShape.forEach(function(point) {
+    var parts = point.split(',');
+    strip.pushLatLngAlt(parts[0], parts[1]);
+  });
+
+  polyline = new H.map.Polyline(strip, {
+    // style: {
+    //   lineWidth: 4,
+    //   strokeColor: 'rgba(0, 128, 255, 0.7)'
+    // }
+    style: {
+      lineWidth: 10,
+      strokeColor: line_colors[all_routes.length]
+    },
+    arrows: { fillColor: 'white', frequency: 2, width: 0.8, length: 0.7 }
+
+  });
+  // Add the polyline to the map
+  map.addObject(polyline);
+  // And zoom to its bounding rectangle
+  
+};
+
 
 /**
- * Creates a series of list items for each location found, and adds it to the panel.
- * @param {Object[]} locations An array of locations as received from the
- *                             H.service.GeocodingService
+ * Creates a series of H.map.Marker points from the route and adds them to the map.
+ * @param {Object} route  A route as received from the H.service.RoutingService
  */
-function addPlacesToPanel(places){
+function addManueversToMap(route){
+  var svgMarkup = '<svg width="18" height="18" ' +
+    'xmlns="http://www.w3.org/2000/svg">' +
+    '<circle cx="8" cy="8" r="8" ' +
+      'fill="#1b468d" stroke="white" stroke-width="1"  />' +
+    '</svg>',
+    dotIcon = new H.map.Icon(svgMarkup, {anchor: {x:8, y:8}}),
+    group = new  H.map.Group(),
+    i,
+    j;
 
-  var nodeOL = document.createElement('ul'),
-    i;
+  // Add a marker for each maneuver
+  for (i = 0;  i < route.leg.length; i += 1) {
+    for (j = 0;  j < route.leg[i].maneuver.length; j += 1) {
+      // Get the next maneuver.
+      maneuver = route.leg[i].maneuver[j];
+      dots.push(new H.geo.Point(maneuver.position.latitude,maneuver.position.longitude));
+      // Add a marker to the maneuvers group
+      var marker =  new H.map.Marker({
+        lat: maneuver.position.latitude,
+        lng: maneuver.position.longitude} ,
+        {icon: dotIcon});
+      marker.instruction = maneuver.instruction;
+      group.addObject(marker);
+    };
+  };
+
+  // Add the maneuvers group to the map
+  map.addObject(group);
+};
+
+/**
+ * Creates a series of H.map.Marker points from the route and adds them to the map.
+ * @param {Object} route  A route as received from the H.service.RoutingService
+ */
+function addWaypointsToPanel(marker1, marker2){
+
+
+  var nodeH3 = document.createElement('h3'),
+    waypointLabels = [];
+  waypointLabels.push(marker1.place_name)
+  waypointLabels.push(marker2.place_name)
+
+   nodeH3.textContent = waypointLabels.join(' ==> ');
+
+//  routeInstructionsContainer.innerHTML = '';
+  routeInstructionsContainer.appendChild(nodeH3);
+};
+
+/**
+ * Creates a series of H.map.Marker points from the route and adds them to the map.
+ * @param {Object} route  A route as received from the H.service.RoutingService
+ */
+function addSummaryToPanel(summary){
+  var summaryDiv = document.createElement('div'), content = '';
+   content += '<b>Total distance</b>: ' + (summary.distance*0.000621).toFixed(2)  + ' miles. <br/>';
+   content += '<b>Travel Time</b>: ' + summary.travelTime.toMMSS() + ' (in current traffic)';
+
+
+  summaryDiv.style.fontSize = 'small';
+  summaryDiv.style.marginLeft ='5%';
+  summaryDiv.style.marginRight ='5%';
+  summaryDiv.innerHTML = content;
+  routeInstructionsContainer.appendChild(summaryDiv);
+};
+
+/**
+ * Creates a series of H.map.Marker points from the route and adds them to the map.
+ * @param {Object} route  A route as received from the H.service.RoutingService
+ */
+function addManueversToPanel(route){
+
+
+
+  var nodeOL = document.createElement('ol'),
+    i,
+    j;
 
   nodeOL.style.fontSize = 'small';
   nodeOL.style.marginLeft ='5%';
   nodeOL.style.marginRight ='5%';
+  nodeOL.className = 'directions';
 
+     // Add a marker for each maneuver
+  for (i = 0;  i < route.leg.length; i += 1) {
+    for (j = 0;  j < route.leg[i].maneuver.length; j += 1) {
+      // Get the next maneuver.
+      maneuver = route.leg[i].maneuver[j];
 
-   for (i = 0;  i < places.length; i += 1) {
-     var li = document.createElement('li'),
-        divLabel = document.createElement('div'),
-        content =  '<strong style="font-size: large;">' + places[i].title  + '</strong>';
-        content += ' <span style="font-size:smaller">(' +  places[i].category.title + ')</span><br>';
-        content +=  places[i].vicinity + '<br>';
-        content += '<strong>distance:</strong>' +  places[i].distance + 'm<br>';
+      var li = document.createElement('li'),
+        spanInstruction = document.createElement('span');
 
-      divLabel.innerHTML = content;
-      li.appendChild(divLabel);
+      spanInstruction.innerHTML = maneuver.instruction;
+      li.appendChild(spanInstruction);
+
       nodeOL.appendChild(li);
-  }
+    };
+  };
 
-  placesContainer.appendChild(nodeOL);
-}
+  routeInstructionsContainer.appendChild(nodeOL);
+};
+
+// /**
+//  * Creates a series of list items for each location found, and adds it to the panel.
+//  * @param {Object[]} locations An array of locations as received from the
+//  *                             H.service.GeocodingService
+//  */
+// function addPlacesToPanel(places){
+
+//   var nodeOL = document.createElement('ul'),
+//     i;
+
+//   nodeOL.style.fontSize = 'small';
+//   nodeOL.style.marginLeft ='5%';
+//   nodeOL.style.marginRight ='5%';
+
+
+//    for (i = 0;  i < places.length; i += 1) {
+//      var li = document.createElement('li'),
+//         divLabel = document.createElement('div'),
+//         content =  '<strong style="font-size: large;">' + places[i].title  + '</strong>';
+//         content += ' <span style="font-size:smaller">(' +  places[i].category.title + ')</span><br>';
+//         content +=  places[i].vicinity + '<br>';
+//         content += '<strong>distance:</strong>' +  places[i].distance + 'm<br>';
+
+//       divLabel.innerHTML = content;
+//       li.appendChild(divLabel);
+//       nodeOL.appendChild(li);
+//   }
+
+//   placesContainer.appendChild(nodeOL);
+// }
+
+Number.prototype.toMMSS = function () {
+  return  Math.floor(this / 60)  +' minutes '+ (this % 60)  + ' seconds.';
+};
 
 
 // 1. initialize platform
 var platform = new H.service.Platform({
-  app_id: 'zqFwHGs3fAaLpN3H0D4e',
-  app_code: 'TiCEcnSvzxEy6xOmaIwlOw',
+  app_id: 'S8J3sTnATkUOVfSWLZCN',
+  app_code: 'mL4HA61y1RsXqgM2Ei_DAw',
   useHTTPS: true,
   useCIT: true
 });
 
 var defaultLayers = platform.createDefaultLayers();
+var routeInstructionsContainer = document.getElementById('panel');
+platform.configure(H.map.render.panorama.RenderEngine);
 
 var map = new H.Map(document.getElementById('map'),
   defaultLayers.normal.map, {
-    center: {lat: -37.7942, lng: -122.4070},
+    center: {lat: 37.8717, lng: -122.4070},
     zoom: 15
+    //engineType: H.Map.EngineType.PANORAMA
   });
+
+var currentOver = map;
+
+ var mapEvents = new H.mapevents.MapEvents(map);
+
+map.addEventListener('enginechange',function(evt){
+    map.setViewBounds(H.geo.Rect.coverPoints(dots), true);
+});
+
+map.addEventListener('mapviewchange',function (evt){
+  getBubblePoint();
+});
+
+map.addEventListener('pointermove', function(evt) {
+    // Log 'tap' and 'mouse' events:
+  if (evt.target != currentOver) {  
+    if (currentOver instanceof mapsjs.map.Marker){
+      closeBubble();
+    }
+    if (evt.target instanceof mapsjs.map.Marker && evt.target.content2){
+      openBubble(evt.target.getPosition(), evt.target.content2, evt.target);
+    }
+    currentOver = evt.target;
+  } 
+});
+
+var ordered_list_places = [];
+
+map.addEventListener('tap', function(evt){
+  if (canDblTap && evt.target instanceof mapsjs.map.Marker){
+    index = ordered_list_places.indexOf(evt.target);
+    if (index > -1){
+      ordered_list_places.splice(index, 1);
+      routeInstructionsContainer.removeChild(routeInstructionsContainer.childNodes[index]);
+    }
+  
+    else{
+      ordered_list_places.push(evt.target);
+      var listDiv = document.createElement('div');
+      listDiv.innerHTML = evt.target.content;
+      routeInstructionsContainer.appendChild(listDiv);
+      evt.target.text = "hi";
+    }
+  }
+});
+
+map.addEventListener('dbltap', function(evt){
+
+  if (canDblTap && evt.target === map){
+    for (var i = routeInstructionsContainer.childNodes.length-1; i > -1; i--){
+      routeInstructionsContainer.removeChild(routeInstructionsContainer.childNodes[i]);
+    }
+    
+    set_Trail_Points(ordered_list_places);
+  }
+});
 
 var placesContainer = document.getElementById('panel');
 
 // add map behavior
 
-var behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(map));
+var behavior = new H.mapevents.Behavior(mapEvents);
 
 // Create the default UI components
 
 var ui = H.ui.UI.createDefault(map, defaultLayers);
 
-explorePlaces(platform);
+explorePlaces(platform,37.8717,-122.4070,6);
+
+
+    
 
 
 
