@@ -322,6 +322,9 @@
 	<div class="text-center">
 	<label for="radiusm">Radius of Travel (miles)</label>
     <input type="distance" class="form-control" id="distance" placeholder="10">
+	<label for="automatic">Automatic?</label>
+    <input type="checkbox" id="autoorno" class="stffff" >
+
 </div>
 	<div class="text-center">
 	<button type="button" class="btn btn-default" id="mybutton" onclick="findLocation()">Submit</button>
@@ -368,7 +371,10 @@
 		lon=lons[1].childNodes[0].nodeValue;
 		
 		var radius=document.getElementById('distance').value;
+		chose_auto = document.getElementById('autoorno').checked;
+
 		explorePlaces(platform,lat,lon,radius);
+		
 // 		var platform = new H.service.Platform({
 //   app_id: 'S8J3sTnATkUOVfSWLZCN',
 //   app_code: 'mL4HA61y1RsXqgM2Ei_DAw',
@@ -402,6 +408,7 @@ var geo_points = [];
 var dots = [];
 var start_drawing = false;
 var canDblTap = true;
+var chose_auto = false;
 
 /**
  * This example uses the explore entrypoint to find sights and museums, around the
@@ -496,19 +503,24 @@ function calculateRouteFromAtoB (platform, place1, place2) {
 
 function onSuccess(result) {
   var route = result.response.route[0];
+  
  /*
   * The styling of the route response on the map is entirely under the developer's control.
   * A representitive styling can be found the full JS + HTML code of this example
   * in the functions below:
   */
 //  confirm("success");
+callbacks = callbacks + 1;
   addRouteShapeToMap(route);
   addManueversToMap(route);
   all_routes.push(route);
+
  // confirm(all_routes);
   total_Time += route.summary.travelTime;
+
   total_Distance += route.summary.distance;
-  callbacks = callbacks + 1;
+  
+  
 
   if(callbacks === geo_points.length-1){
     finalSummary(platform);  
@@ -695,7 +707,13 @@ function addPlacesToMap(places) {
   marker_group = group;
   // get geo bounding box for the group and set it to the map
   map.setViewBounds(group.getBounds());
+	if (chose_auto){
+		for(i = 0; i< marker_group.getObjects().length; i++){
+			ordered_list_places.push(marker_group.getObjects()[i]);
+		}
 
+    		set_Trail_Points(ordered_list_places);
+		}
   start_drawing = true;
 }
 function addRouteShapeToMap(route){
