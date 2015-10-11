@@ -212,7 +212,7 @@
     	<% end %>
 		
 		<div class="header">
-				Welcome to sTrails
+				Welcome to
 				<div class="text-center">
 				<img src="http://i.imgur.com/YDJTJ9J.png?1">
 			</div>
@@ -226,13 +226,13 @@
 		<% if not logged_in? %>	
 			<div id="signup-form">
 				<%= form_for(:session, url: login_path) do |f| %>
-		
-					<div class="listelement">
+					
+					<div class="listelement text-center">
 	     				<%= f.label :email %>
 	     				<%= f.email_field :email, :placeholder => "example@example.com" %>
 	  				</div>
 	  			
-	  				<div class="listelement">
+	  				<div class="listelement text-center">
 	      				<%= f.label :password %>
 	      				<%= f.password_field :password, :placeholder => "Password" %>
 	     			</div>
@@ -325,6 +325,7 @@
 </div>
 	<div class="text-center">
 	<button type="button" class="btn btn-default" id="mybutton" onclick="findLocation()">Submit</button>
+	
 	<script>
 	function findLocation(){ 
 	
@@ -367,93 +368,14 @@
 		lon=lons[1].childNodes[0].nodeValue;
 		
 		var radius=document.getElementById('distance').value;
-		
-		var platform = new H.service.Platform({
-  app_id: 'S8J3sTnATkUOVfSWLZCN',
-  app_code: 'mL4HA61y1RsXqgM2Ei_DAw',
-  useHTTPS: true,
-  useCIT: true
-});
+		explorePlaces(platform,lat,lon,radius);
+// 		var platform = new H.service.Platform({
+//   app_id: 'S8J3sTnATkUOVfSWLZCN',
+//   app_code: 'mL4HA61y1RsXqgM2Ei_DAw',
+//   useHTTPS: true,
+//   useCIT: true
+// });
 
-var defaultLayers = platform.createDefaultLayers();
-var routeInstructionsContainer = document.getElementById('panel');
-platform.configure(H.map.render.panorama.RenderEngine);
-
-var map = new H.Map(document.getElementById('map'),
-  defaultLayers.normal.map, {
-    center: {lat: lat, lng: lon},
-    zoom: 15
-    //engineType: H.Map.EngineType.PANORAMA
-  });
-
-var currentOver = map;
-
- var mapEvents = new H.mapevents.MapEvents(map);
-
-map.addEventListener('enginechange',function(evt){
-    map.setViewBounds(H.geo.Rect.coverPoints(dots), true);
-});
-
-map.addEventListener('mapviewchange',function (evt){
-  getBubblePoint();
-});
-
-map.addEventListener('pointermove', function(evt) {
-    // Log 'tap' and 'mouse' events:
-  if (evt.target != currentOver) {  
-    if (currentOver instanceof mapsjs.map.Marker){
-      closeBubble();
-    }
-    if (evt.target instanceof mapsjs.map.Marker && evt.target.content2){
-      openBubble(evt.target.getPosition(), evt.target.content2, evt.target);
-    }
-    currentOver = evt.target;
-  } 
-});
-
-var ordered_list_places = [];
-
-map.addEventListener('tap', function(evt){
-  if (canDblTap && evt.target instanceof mapsjs.map.Marker){
-    index = ordered_list_places.indexOf(evt.target);
-    if (index > -1){
-      ordered_list_places.splice(index, 1);
-      routeInstructionsContainer.removeChild(routeInstructionsContainer.childNodes[index]);
-    }
-  
-    else{
-      ordered_list_places.push(evt.target);
-      var listDiv = document.createElement('div');
-      listDiv.innerHTML = evt.target.content;
-      routeInstructionsContainer.appendChild(listDiv);
-      evt.target.text = "hi";
-    }
-  }
-});
-
-map.addEventListener('dbltap', function(evt){
-
-  if (canDblTap && evt.target === map){
-    for (var i = routeInstructionsContainer.childNodes.length-1; i > -1; i--){
-      routeInstructionsContainer.removeChild(routeInstructionsContainer.childNodes[i]);
-    }
-    
-    set_Trail_Points(ordered_list_places);
-  }
-});
-
-var placesContainer = document.getElementById('panel');
-
-// add map behavior
-
-var behavior = new H.mapevents.Behavior(mapEvents);
-
-// Create the default UI components
-
-var ui = H.ui.UI.createDefault(map, defaultLayers);
-
-explorePlaces(platform,lat,lon,radius);
-location.refresh();
 
 		
 	}
@@ -470,10 +392,9 @@ location.refresh();
 		
 	
 	</div>
-	
-	
-	<div id="map" style="position:absolute; width:49%; height:100%; background:grey" ></div>
+<div id="map" style="position:absolute; width:49%; height:100%; background:grey" ></div>
   	<div id="panel" style="position:absolute; width:49%; left:51%; height:100%; background:inherit" ></div>
+
 
 	<script  type="text/javascript" charset="UTF-8" >
     
@@ -946,8 +867,6 @@ function addManueversToPanel(route){
 Number.prototype.toMMSS = function () {
   return  Math.floor(this / 60)  +' minutes '+ (this % 60)  + ' seconds.';
 };
-
-
 // 1. initialize platform
 var platform = new H.service.Platform({
   app_id: 'S8J3sTnATkUOVfSWLZCN',
@@ -1033,7 +952,7 @@ var behavior = new H.mapevents.Behavior(mapEvents);
 
 var ui = H.ui.UI.createDefault(map, defaultLayers);
 
-explorePlaces(platform,37.8717,-122.4070,6);
+//explorePlaces(platform,37.8717,-122.4070,6);
 
 
     
@@ -1041,6 +960,10 @@ explorePlaces(platform,37.8717,-122.4070,6);
 
 
 	</script>
-
+	<% if not logged_in? %>
+  	<script>
+  	explorePlaces(platform,37.8717,-122.4070,6);
+  	</script>
+  	<%end%>
 </body>
 </html>
