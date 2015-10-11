@@ -1,0 +1,135 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or any plugin's vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any styles
+ * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
+ * file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+
+.debug_dump {
+  margin-top:100px;
+}
+
+#flash_notice{
+  width:650px;
+  color:red;
+  margin:55px auto 0px;
+text-align: center;
+  background-color: rgba(255,0,0,.4);
+  font-size: 1em;
+  height:3em;
+  border-radius: 5px;
+  transition:opacity 0.5s;
+}
+
+.df{
+  width:50%;
+  margin: 0 auto;
+}
+#mybutton{
+  margin:3em auto;
+}
+#flash_notice:hover{
+
+opacity:0;
+
+}
+#submitbutton{
+  margin:auto;
+}
+#CityName{
+  width:50%;
+  margin:1em auto 1em;
+}
+.header{
+	text-align: center;
+	margin:3em 0em 1em;
+	font-size:40px;
+	font-style: bold;
+  color:black;
+}
+
+#header1{
+  text-align: center;
+  margin:6em 0em 1em;
+  font-size:40px;
+  font-style: bold;
+  color:black;
+}
+body > div > div.navbar.navbar-inverse.navbar-fixed-top > ul.nav.navbar-nav.navbar-right
+{
+  margin-right:-10px;
+}
+.listelement{
+  width:4em
+  height:20em;
+  text-align: center;
+}
+#content{
+  text-align: center;
+  font-size:1em;
+  margin:2em;
+  padding:3em;
+}
+
+#signupbutton{
+  margin-top:0em auto 5em;
+  text-align: center;
+}
+
+.buttonspan{
+  margin-bottom: 2em;
+}
+
+
+#signup-form > form > div:nth-child(3) > label
+{
+  
+  display:block;
+}
+
+#signup-form > form > div:nth-child(4) > label
+{
+ 
+  display:block;
+}
+#signup-form {
+  text-align:center;
+  margin: 2em 20em 1em;
+  
+  font-size: medium;
+ 
+}
+
+input[type=text],
+input[type=email],
+input[type=password] {
+  color: #666666;
+  width: 80%;
+  border: 1px solid #E6E6E6;
+  border-radius: 5px; 
+  height: 3em;
+  margin: 1em;
+  text-indent: 10px;
+
+}
+
+.form-group {
+  text-align: center;
+}
+
+.stuff {
+  text-align: center;
+}
+
+.form-control {
+  text-align: center;
+}

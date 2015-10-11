@@ -1,0 +1,63 @@
+<html>
+<head>
+	<title><%= full_title(yield(:title)) %></title>
+	<%= stylesheet_link_tag 'application', media: 'all',
+	'data-turbolinks-track' => true %>
+	<%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+	<%= csrf_meta_tags %>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="assets/css/style.css" />
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+</head>
+<body>
+	<div class="container-fluid">
+		<div class="navbar navbar-inverse navbar-fixed-top">
+
+
+
+			<ul class="nav navbar-nav">
+				<li class="active"><a href="#">Home</a></li>
+				
+				<li><a href="#">Our Team</a><li>
+			</ul>
+			<ul class="nav navbar-nav navbar-right">
+       		 <% if logged_in? %>
+       		 <li><a href="#">Your Profile</a></li>
+       		 <li><a href="#">Logout</a></li>
+       		 <% else %>
+       		 <li><a href="#">Log In</a></li>
+       		 <li><a href="#">Sign Up</a></li>
+       		 <% end %>
+       		</ul>
+       		
+
+
+		</div>
+
+	<div id="header1">
+		Sign Up. The first step to personalized tours of any travel destination.
+
+	</div>	
+	<div id="signup-form">
+				<%= form_for(@user) do |f| %>
+	<div class="listelement">
+      <%= f.label :email %>
+      <%= f.email_field :email, :placeholder => "hi@hi.com" %>
+  	</div>
+  	<div class="listelement">
+      <%= f.label :password %>
+      <%= f.password_field :password, :placeholder => "Password" %>
+     </div>
+      <%= f.submit "Sign Up", class: "btn btn-primary" %>
+    <% end %>
+	</div>
+</div>
+</body>
+</html>
